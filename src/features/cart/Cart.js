@@ -44,7 +44,7 @@ export default function Cart() {
 
   return (
     <>
-      <div className="mx-auto mt-12 bg-slate-100 max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto mt-12 bg-gray-400 max-w-7xl px-4 sm:px-8 lg:px-8">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
           Cart
         </h2>
@@ -112,16 +112,16 @@ export default function Cart() {
             Shipping and taxes calculated at checkout.
           </p>
           <div className="mt-6">
-            <a
-              href="#"
+            <Link
+              to="/Checkout"
               className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
             >
               Checkout
-            </a>
+            </Link>
           </div>
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <p>
-              or{" "}
+              or 
               <Link to="/">
               <button
                 type="button"
