@@ -1,4 +1,4 @@
-import ProductDetail from "../features/product-list/components/ProductDetail";
+import ProductDetail from "../features/product/components/ProductDetail";
 import Navbar from "../features/navbar/Navbar";
 
 
