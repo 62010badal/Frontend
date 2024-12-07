@@ -12332,16 +12332,75 @@
     }
   ],
   "users": [
-    {},
     {
-      "id": "e127",
-      "email": "sapna123@gmail.com",
-      "password": "Badal123456"
-    },
+      "id": "de34",
+      "email": "demo123@gmail.com",
+      "password": "Demo123456"
+    }
+  ],
+  "cart": [
     {
-      "id": "6888",
-      "email": "badal12@gmail.com",
-      "password": "Sapna123456"
+      "id": "79",
+      "title": "Asus Zenbook Pro Dual Screen Laptop",
+      "description": "The Asus Zenbook Pro Dual Screen Laptop is a high-performance device with dual screens, providing productivity and versatility for creative professionals.",
+      "category": "laptops",
+      "price": 1799.99,
+      "discountPercentage": 9.21,
+      "rating": 3.14,
+      "stock": 38,
+      "tags": [
+        "laptops"
+      ],
+      "brand": "Asus",
+      "sku": "4A9KFMBG",
+      "weight": 8,
+      "dimensions": {
+        "width": 19.67,
+        "height": 11.05,
+        "depth": 14.32
+      },
+      "warrantyInformation": "No warranty",
+      "shippingInformation": "Ships in 3-5 business days",
+      "availabilityStatus": "In Stock",
+      "reviews": [
+        {
+          "rating": 5,
+          "comment": "Very satisfied!",
+          "date": "2024-05-23T08:56:21.622Z",
+          "reviewerName": "Jack Ward",
+          "reviewerEmail": "jack.ward@x.dummyjson.com"
+        },
+        {
+          "rating": 1,
+          "comment": "Very disappointed!",
+          "date": "2024-05-23T08:56:21.622Z",
+          "reviewerName": "Ava Harris",
+          "reviewerEmail": "ava.harris@x.dummyjson.com"
+        },
+        {
+          "rating": 5,
+          "comment": "Great value for money!",
+          "date": "2024-05-23T08:56:21.622Z",
+          "reviewerName": "Brayden Fleming",
+          "reviewerEmail": "brayden.fleming@x.dummyjson.com"
+        }
+      ],
+      "returnPolicy": "No return policy",
+      "minimumOrderQuantity": 1,
+      "meta": {
+        "createdAt": "2024-05-23T08:56:21.622Z",
+        "updatedAt": "2024-05-23T08:56:21.622Z",
+        "barcode": "2899455033799",
+        "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
+      },
+      "images": [
+        "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/1.png",
+        "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/2.png",
+        "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/3.png"
+      ],
+      "thumbnail": "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/thumbnail.png",
+      "quantity": 5,
+      "user": "de34"
     }
   ]
 }

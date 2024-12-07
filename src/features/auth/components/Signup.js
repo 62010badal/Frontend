@@ -38,10 +38,13 @@ console.log(errors);
           <form
             noValidate
             className="space-y-6"
+            action="#"
+            method="POST"
             onSubmit={handleSubmit((data) => {
             dispatch(createUserAsync({email:data.email, password:data.password}));
               console.log(data);
             })}
+
           >
             <div>
               <label

@@ -13,6 +13,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { selectItems } from "../cart/cartSlice";
+import { useSelector } from "react-redux";
 
 const user = {
   name: "Tom Cook",
@@ -35,6 +37,7 @@ function classNames(...classes) {
 }
 
 function Navbar({ children }) {
+  const items = useSelector(selectItems);
   return (
     <>
       <div className="min-h-full">
@@ -83,9 +86,9 @@ function Navbar({ children }) {
                       <ShoppingCartIcon aria-hidden="true" className="size-6" />
                     </button>
                   </Link>
-                  <span className="inline-flex items-center rounded-md  bg-red-50 mb-5 -ml-2 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                    3
-                  </span>
+                  {items.length> 0 && <span className="inline-flex items-center rounded-md  bg-red-50 mb-5 -ml-2 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                    {items.length}
+                  </span> }
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
@@ -181,9 +184,9 @@ function Navbar({ children }) {
                     <ShoppingCartIcon aria-hidden="true" className="size-6" />
                   </button>
                 </Link>
-                <span className="inline-flex items-center rounded-md  bg-red-50 mb-5 -ml-2 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                  3
-                </span>
+                {items.length> 0 && <span className="inline-flex items-center rounded-md  bg-red-50 mb-5 -ml-2 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                    {items.length}
+                  </span> }
               </div>
               <div className="mt-3 space-y-1 px-2">
                 {userNavigation.map((item) => (
