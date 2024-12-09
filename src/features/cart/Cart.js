@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteItemFromCartAsync, selectItems, updateCartAsync } from "./cartSlice";
+import {
+  deleteItemFromCartAsync,
+  selectItems,
+  updateCartAsync,
+} from "./cartSlice";
 import { Link } from "react-router-dom";
 import {
   Dialog,
@@ -9,26 +13,31 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-
+import { Navigate } from "react-router-dom";
 
 export default function Cart() {
   const items = useSelector(selectItems);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 
-  const totalAmount = items.reduce((amount, item) => item.price*item.quantity + amount, 0);
-  const totalItems  = items.reduce((total, item) => item.quantity + total, 0);
+  const totalAmount = items.reduce(
+    (amount, item) => item.price * item.quantity + amount,
+    0
+  );
+  const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
-const handleQuantity =(e, item) => {
-  dispatch(updateCartAsync({...item, quantity: +e.target.value}));
-}
+  const handleQuantity = (e, item) => {
+    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+  };
 
-const handleRemove = (e, id) =>{
-  dispatch(deleteItemFromCartAsync(id));
-}
+  const handleRemove = (e, id) => {
+    dispatch(deleteItemFromCartAsync(id));
+  };
 
   return (
     <>
+    {!items.length && <Navigate to='/' replace={true}></Navigate> }
+    <div>
       <div className="mx-auto mt-12 bg-gray-400 max-w-7xl px-4 sm:px-8 lg:px-8">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
           Cart
@@ -54,9 +63,7 @@ const handleRemove = (e, id) =>{
                         </h3>
                         <p className="ml-4">${item.price}</p>
                       </div>
-                      <p className="mt-1 text-sm text-gray-500">
-                        {item.brand}
-                      </p>
+                      <p className="mt-1 text-sm text-gray-500">{item.brand}</p>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <div className="text-gray-500">
@@ -66,20 +73,21 @@ const handleRemove = (e, id) =>{
                         >
                           Qty
                         </label>
-                        <select onChange={(e) => handleQuantity(e, item)} value={item.quantity}>
+                        <select
+                          onChange={(e) => handleQuantity(e, item)}
+                          value={item.quantity}
+                        >
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
                           <option value="4">4</option>
                           <option value="5">5</option>
-                         
-                      
                         </select>
                       </div>
 
                       <div className="flex">
                         <button
-                          onClick={e => handleRemove(e, item.id )}
+                          onClick={(e) => handleRemove(e, item.id)}
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
                         >
@@ -116,21 +124,22 @@ const handleRemove = (e, id) =>{
           </div>
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <p>
-              or 
+              or
               <Link to="/">
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Continue Shopping
-                <span aria-hidden="true"> &rarr;</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Continue Shopping
+                  <span aria-hidden="true"> &rarr;</span>
+                </button>
               </Link>
             </p>
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 }
