@@ -9,7 +9,10 @@ import {
   selectItems,
   updateCartAsync,
 } from "../features/cart/cartSlice";
-import { createOrderAsync, selectCurrentOrder } from "../features/order/orderSlice";
+import {
+  createOrderAsync,
+  selectCurrentOrder,
+} from "../features/order/orderSlice";
 import {
   Dialog,
   DialogBackdrop,
@@ -18,10 +21,8 @@ import {
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Navigate } from "react-router-dom";
-import {
-  selectLoggedInUser,
-  updateUserAsync,
-} from "../features/auth/authSlice";
+import { updateUserAsync } from "../features/auth/authSlice";
+import { selectUserInfo } from "../features/user/userSlice";
 
 export default function Checkout() {
   const dispatch = useDispatch();
@@ -32,10 +33,11 @@ export default function Checkout() {
     formState: { errors },
   } = useForm();
 
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
-  const [open, setOpen] = useState(true);
+  
   const currentOrder = useSelector(selectCurrentOrder);
+
   const totalAmount = items.reduce(
     (amount, item) => item.price * item.quantity + amount,
     0
@@ -71,7 +73,7 @@ export default function Checkout() {
       user,
       PaymentMethod,
       selectedAddress,
-      status: 'pending',  // Other status can be delivered, recieved.s
+      status: "pending", // Other status can be delivered, recieved.s
     };
     dispatch(createOrderAsync(order));
     // Need to redirect from here to a new page of order success.
@@ -84,7 +86,12 @@ export default function Checkout() {
   return (
     <>
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
-      {currentOrder &&  <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}
+      {currentOrder && (
+        <Navigate
+          to={`/order-success/${currentOrder.id}`}
+          replace={true}
+        ></Navigate>
+      )}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
@@ -128,6 +135,9 @@ export default function Checkout() {
                           type="text"
                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                         />
+                        {errors.name && (
+                          <p className="text-red-500">{errors.name.message}</p>
+                        )}
                       </div>
                     </div>
 
@@ -147,6 +157,9 @@ export default function Checkout() {
                           type="email"
                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                         />
+                         {errors.email && (
+                          <p className="text-red-500">{errors.email.message}</p>
+                        )}
                       </div>
                     </div>
 
@@ -166,6 +179,9 @@ export default function Checkout() {
                           type="number"
                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                         />
+                        {errors.phone && (
+                          <p className="text-red-500">{errors.phone.message}</p>
+                        )}
                       </div>
                     </div>
 
@@ -185,6 +201,11 @@ export default function Checkout() {
                           type="text"
                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                         />
+                        {errors.street && (
+                          <p className="text-red-500">
+                            {errors.street.message}
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -204,6 +225,9 @@ export default function Checkout() {
                           type="text"
                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                         />
+                         {errors.city && (
+                          <p className="text-red-500">{errors.city.message}</p>
+                        )}
                       </div>
                     </div>
 
@@ -223,6 +247,9 @@ export default function Checkout() {
                           type="text"
                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                         />
+                        {errors.state && (
+                          <p className="text-red-500">{errors.state.message}</p>
+                        )}
                       </div>
                     </div>
 
@@ -242,6 +269,11 @@ export default function Checkout() {
                           type="number"
                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                         />
+                        {errors.pinCode && (
+                          <p className="text-red-500">
+                            {errors.pinCode.message}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -261,6 +293,8 @@ export default function Checkout() {
                     Add Address
                   </button>
                 </div>
+                </div>
+                </form>
 
                 <div className="border-b border-gray-900/10 pb-12">
                   <h2 className="text-base/7 font-semibold text-gray-900">
@@ -272,7 +306,7 @@ export default function Checkout() {
                   <ul role="list">
                     {user.addresses.map((address, index) => (
                       <li
-                        key={address.email}
+                        key={index}
                         className="flex justify-between gap-x-6  px-5 py-5 border-solid border-2 border-gray-200"
                       >
                         <div className="flex min-w-0 gap-x-4">
@@ -308,6 +342,7 @@ export default function Checkout() {
                       </li>
                     ))}
                   </ul>
+
                   <div className="mt-10 space-y-10">
                     <fieldset>
                       <legend className="text-sm/6 font-semibold text-gray-900">
@@ -354,9 +389,8 @@ export default function Checkout() {
                     </fieldset>
                   </div>
                 </div>
-              </div>
-            </form>
-          </div>
+                </div>
+
           <div className="lg:col-span-2">
             <div className="mx-auto mt-12 bg-gray-400 max-w-7xl px-2 sm:px-2 lg:px-2">
               <div className="border-t border-gray-200 px-0 py-6 sm:px-0">
@@ -451,7 +485,7 @@ export default function Checkout() {
                       <Link to="/">
                         <button
                           type="button"
-                          onClick={() => setOpen(false)}
+                          
                           className="font-medium text-indigo-600 hover:text-indigo-500"
                         >
                           Continue Shopping
@@ -459,7 +493,7 @@ export default function Checkout() {
                         </button>
                       </Link>
                     </p>
-                  </div>
+                    </div>
                 </div>
               </div>
             </div>

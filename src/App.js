@@ -20,6 +20,12 @@ import { selectLoggedInUser } from './features/auth/authSlice';
 import PageNotFound from './pages/404'
 import OrderSuccessPage from './pages/OrderSuccessPage';
 import UserOrdersPage from './pages/UserOrderPage';
+import UserProfilePage from './pages/UserProfilePage';
+import { fetchLoggedInUser } from './features/user/userAPI';
+import { fetchLoggedInUserAsync } from './features/user/userSlice';
+import Logout from './features/auth/components/Logout';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+
 
 const router = createBrowserRouter([
   {
@@ -43,17 +49,12 @@ const router = createBrowserRouter([
       </Protected>,
   },
   {
-    path: "/Checkout",
+    path: "/checkout",
     element: <Protected><Checkout></Checkout></Protected>,
   },
   {
     path: "/product-detail/:id",
     element: <Protected><ProductDetailPage></ProductDetailPage></Protected>,
-  },
-  {
-    path: "*",
-    element: 
-      <PageNotFound></PageNotFound>
   },
   {
     path: "/order-success/:id",
@@ -64,7 +65,26 @@ const router = createBrowserRouter([
     path: "/orders",
     element:
         <UserOrdersPage></UserOrdersPage> 
-      // we will add Page later right now using components directely 
+        },
+  {
+    path: "/profile",
+    element: 
+      <UserProfilePage></UserProfilePage>
+  },
+  {
+    path: "/logout",
+    element: 
+      <Logout></Logout>
+  },
+  {
+    path: "/forgot-password",
+    element: 
+      <ForgotPasswordPage></ForgotPasswordPage>
+  },
+  {
+    path: "*",
+    element: 
+      <PageNotFound></PageNotFound>
   },
 ]);
 
@@ -75,8 +95,9 @@ function App() {
   const user = useSelector(selectLoggedInUser);
 
 useEffect(()=> {
-  if(user){
+  if(user?.id){
     dispatch(fetchItemsByUserIdAsync(user.id));
+    dispatch(fetchLoggedInUserAsync(user.id));
   } 
 }, [dispatch, user]);
 
